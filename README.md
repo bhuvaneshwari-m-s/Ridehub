@@ -42,5 +42,5 @@ RideHub is a fully functional backend system for a ride-booking platform, built 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/ridehub.git
+git clone https://github.com/bhuvaneshwari-m-s/ridehub.git
 cd ridehub
