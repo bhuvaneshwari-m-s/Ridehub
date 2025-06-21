@@ -31,7 +31,7 @@ RideHub is a fully functional backend system for a ride-booking platform, built 
 - **Authentication:** JWT + Bcrypt  
 - **Geo Queries:** MongoDB Geospatial (2dsphere)  
 - **Deployment:** Render  
-- **Testing:** Postman / Thunder Client
+- **Testing:** Postman 
 
 ---
 
