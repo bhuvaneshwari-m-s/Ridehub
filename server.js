@@ -1,15 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
+const rateLimit = require("express-rate-limit");
+
 const authRoutes = require('./routes/authRoutes');
 const driverRoutes = require('./routes/driverRoutes');
 const rideRoutes = require('./routes/rideRoutes');
-const cors = require('cors');
-app.use(cors());
 
 dotenv.config(); // Load .env file
 
-const app = express();
+const app = express(); // ✅ This MUST come before app.use()
+app.use(cors()); // ✅ Now this works
 app.use(express.json()); // Parses JSON in requests
 
 const connectDB = require('./config/db.js'); // Custom DB function
@@ -17,22 +19,20 @@ connectDB();
 
 const PORT = process.env.PORT || 5000;
 
-const rateLimit = require("express-rate-limit");
-
+// Apply rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: 'Too many requests, please try again later.',
 });
-
 app.use(limiter);
 
+// Routes
 app.use('/api/auth', authRoutes);
-
 app.use('/api/driver', driverRoutes);
-
 app.use('/api/rides', rideRoutes);
 
+// Home page
 app.get('/', (req, res) => {
   res.send(`
     <html>
